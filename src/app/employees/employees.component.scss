@@ -1,0 +1,17 @@
+table {
+  width: 99%;
+
+  th {
+    color: white;
+    background-color: cadetblue
+  }
+
+  td {
+    cursor: pointer;
+  }
+
+  td.selected {
+    border: 1px solid green;
+    font-weight: bold
+  }
+}
