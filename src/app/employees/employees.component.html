@@ -1,37 +1,45 @@
-<div class="container">
-  <div class="search-container">
-    <form class="form-inline" (ngSubmit)="searchEmployees()">
-      <div class="form-group mx-sm-3 mb-2">
-        <label for="" class="sr-only">Search Employees</label>
-        <input type="text" [(ngModel)]="nameInputSearch" name="name-input" class="form-control" placeholder="Search Employees">
-      </div>
-      <button type="submit" class="btn btn-primary mb-2">Search</button>
-    </form>
-  </div>
-  <div class="table-responsive" *ngIf="employees">
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th style="width: 20%">id</th>
-          <th style="width: 30%">name</th>
-          <th style="width: 40%">job</th>
-          <th style="width: 5%">age</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let e of employees">
-          <td>{{e.id}}</td>
-          <td>{{e.name}}</td>
-          <td>{{e.job}}</td>
-          <td>{{e.age}}</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="3">Average age:</td>
-          <td>{{ averageAge }}</td>
-        </tr>
-      </tfoot>
-    </table>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <div class="search-container">
+      <form class="form-inline" (ngSubmit)="searchEmployees()">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="" class="sr-only">Search Employees</label>
+          <input type="text" [(ngModel)]="nameInputSearch" name="name-input" class="form-control" placeholder="Search employees...">
+        </div>
+        <button type="submit" class="btn btn-search mb-2">Search</button>
+      </form>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th style="width: 20%">id</th>
+            <th style="width: 30%">name</th>
+            <th style="width: 40%">job</th>
+            <th style="width: 5%">age</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let e of employees">
+            <td>{{e.id}}</td>
+            <td>{{e.name}}</td>
+            <td>{{e.job}}</td>
+            <td>{{e.age}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr *ngIf="employees.length; else noResult">
+            <td colspan="3">Average age:</td>
+            <td>{{ averageAge }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
 </div>
+
+<ng-template #noResult>
+  <tr>
+    <td colspan="4" style="text-align: center">No result found!</td>
+  </tr>
+</ng-template>

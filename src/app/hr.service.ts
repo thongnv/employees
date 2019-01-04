@@ -15,7 +15,7 @@ export class HrService {
   constructor(
     private http: HttpClient) { }
 
-  /** GET employee from the server */
+  /** GET employees from the server */
   getEmployees (): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.employeeUrl)
       .pipe(
@@ -23,30 +23,8 @@ export class HrService {
       );
   }
 
-  getEmployeeNo404<Data>(id: number): Observable<Employee> {
-    const url = `${this.employeeUrl}/?id=${id}`;
-    return this.http.get<Employee[]>(url)
-      .pipe(
-        map(employee => employee[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? `fetched` : `did not find`;
-        }),
-        catchError(this.handleError<Employee>(`getEmployee id=${id}`))
-      );
-  }
-
-  getEmployee(id: number): Observable<Employee> {
-    const url = `${this.employeeUrl}/${id}`;
-    return this.http.get<Employee>(url).pipe(
-      catchError(this.handleError<Employee>(`getEmployee id=${id}`))
-    );
-  }
-
-  /* GET employee whose name contains search term */
+  /* GET employees whose name contains search term */
   searchEmployees(term: string): Observable<Employee[]> {
-    if (!term.trim()) {
-      return of([]);
-    }
     return this.http.get<Employee[]>(`${this.employeeUrl}/?name=${term}`).pipe(
       catchError(this.handleError<Employee[]>('searchEmployees', []))
     );
