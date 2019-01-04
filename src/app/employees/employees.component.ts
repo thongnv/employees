@@ -33,20 +33,18 @@ export class EmployeesComponent implements OnInit {
 
   getEmployees(): void {
     this.hrService.getEmployees()
-      .subscribe(employees => {
-        this.employees = employees;
-        const sumAge = employees.reduce((acc, x) => acc + x.age, 0);
-        this.averageAge = Math.round(sumAge / employees.length * 10) / 10;
-      });
+    .subscribe(employees => this.setEmployees(employees));
+  }
+
+  setEmployees(employees): void {
+    this.employees = employees;
+    const sumAge = employees.reduce((acc, x) => acc + x.age, 0);
+    this.averageAge = Math.round(sumAge / employees.length * 10) / 10;
   }
 
   searchEmployees(): void {
     console.log(this.nameInputSearch);
     this.hrService.searchEmployees(this.nameInputSearch)
-      .subscribe(employees => {
-        this.employees = employees;
-        const sumAge = employees.reduce((acc, x) => acc + x.age, 0);
-        this.averageAge = Math.round(sumAge / employees.length * 10) / 10;
-      });
+      .subscribe(employees => this.setEmployees(employees));
   }
 }
